@@ -50,6 +50,7 @@ CREATE TABLE xpStocks.balance_history(
   balance_type VARCHAR(30) NOT NULL,
   client_id INTEGER NOT NULL,
   amount DECIMAL(10,2) NOT NULL,
+  date DATETIME DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (client_id)
     REFERENCES xpStocks.transactions (id)
     ON DELETE CASCADE
