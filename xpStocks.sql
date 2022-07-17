@@ -12,6 +12,7 @@ CREATE TABLE xpStocks.accounts(
   client_id INTEGER NOT NULL,
   amount_deposited DECIMAL(10,2) NOT NULL,
   amount_invested DECIMAL(10,2) NOT NULL,
+  amount_withdrawn DECIMAL(10,2) NOT NULL,
   FOREIGN KEY (client_id)
     REFERENCES xpStocks.clients (id)
     ON DELETE CASCADE
@@ -34,6 +35,66 @@ CREATE TABLE xpStocks.asset_client(
     ON DELETE CASCADE,
   FOREIGN KEY (ticket_id)
     REFERENCES xpStocks.stocks (id)
+    ON DELETE CASCADE
+);
+
+CREATE TABLE xpStocks.sell_history(
+  id INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  client_id INTEGER NOT NULL,
+  ticket_id INTEGER NOT NULL,
+  qty INTEGER NOT NULL,
+  unit_price DECIMAL(5,2) NOT NULL,
+  date DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (client_id)
+    REFERENCES xpStocks.clients (id)
+    ON DELETE CASCADE,
+  FOREIGN KEY (ticket_id)
+    REFERENCES xpStocks.stocks (id)
+    ON DELETE CASCADE,
+  FOREIGN KEY (unit_price)
+    REFERENCES xpStocks.stocks (unit_price)
+    ON DELETE CASCADE
+);
+
+CREATE TABLE xpStocks.buy_history(
+  id INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  client_id INTEGER NOT NULL,
+  ticket_id INTEGER NOT NULL,
+  qty INTEGER NOT NULL,
+  unit_price DECIMAL(5,2) NOT NULL,
+  date DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (client_id)
+    REFERENCES xpStocks.clients (id)
+    ON DELETE CASCADE,
+  FOREIGN KEY (ticket_id)
+    REFERENCES xpStocks.stocks (id)
+    ON DELETE CASCADE,
+  FOREIGN KEY (unit_price)
+    REFERENCES xpStocks.stocks (unit_price)
+    ON DELETE CASCADE
+);
+
+CREATE TABLE xpStocks.deposit_history(
+  id INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  account_id INTEGER NOT NULL,
+  amount_deposited DECIMAL(10,2) NOT NULL,
+  FOREIGN KEY (account_id)
+    REFERENCES xpStocks.accounts (id)
+    ON DELETE CASCADE,
+  FOREIGN KEY (amount_deposited)
+    REFERENCES xpStocks.accounts (amount_deposited)
+    ON DELETE CASCADE
+);
+
+CREATE TABLE xpStocks.withdrawn_history(
+  id INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  account_id INTEGER NOT NULL,
+  amount_withdrawn DECIMAL(10,2) NOT NULL,
+  FOREIGN KEY (account_id)
+    REFERENCES xpStocks.accounts (id)
+    ON DELETE CASCADE,
+  FOREIGN KEY (amount_withdrawn)
+    REFERENCES xpStocks.accounts (amount_withdrawn)
     ON DELETE CASCADE
 );
 
