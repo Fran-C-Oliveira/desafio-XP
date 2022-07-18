@@ -3,8 +3,6 @@ import investmentRoutes from './investment.routes';
 
 const routers = Router();
 
-routers.use('/investment', investmentRoutes);
-
-
+routers.use('/investments', investmentRoutes);
 
 export default routers;
