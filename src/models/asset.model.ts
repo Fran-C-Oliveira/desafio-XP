@@ -12,4 +12,11 @@ const getClientAssets = async (clientId: number): Promise<RowDataPacket[]> => {
   return result as RowDataPacket[];
 };
 
-export default { getClientAssets };
+const getAssetById = async (ticketId: number): Promise<RowDataPacket[]> => {
+  const [result] = await connection.execute(
+    'SELECT * FROM xpStocks.stocks WHERE id = ?', [ticketId],
+  );
+  return result as RowDataPacket[];
+};
+
+export default { getClientAssets, getAssetById };
