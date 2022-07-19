@@ -22,6 +22,7 @@ const withdrawValues = async (withdrawInfo: IBalance) => {
   }
   const newBalance = clientBalance - amount;
   await balanceModel.uptadeBalance(clientId, newBalance);
+  await balanceModel.withdrawValues(withdrawInfo);
   return { message: `${amount} withdrawal successfully completed`}
 };
 
