@@ -7,4 +7,17 @@ const depositValues = async (depositInfo: IBalance) => {
   return { id: insertId, clientId, amount };
 };
 
-export default { depositValues };
+const withdrawValues = async (withdrawInfo: IBalance) => {
+  const { clientId, amount } = withdrawInfo;
+  const checkedBalance = await balanceModel.checkClientBalance(clientId);
+  
+  const clientBalance = Number(checkedBalance[0].account_balance);
+  if (clientBalance < amount) {
+    return { message: `You don't have the necessary values for this operation in your account`}
+  }
+  const newBalance = clientBalance - amount;
+  await balanceModel.uptadeBalance(clientId, newBalance);
+  return { message: `${amount} withdrawal successfully completed`}
+};
+
+export default { depositValues, withdrawValues };
