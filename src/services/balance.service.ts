@@ -3,8 +3,13 @@ import { IBalance } from '../interfaces/balance.interface';
 
 const depositValues = async (depositInfo: IBalance) => {
   const { clientId, amount } = depositInfo;
-  const { insertId } = await balanceModel.depositValues(depositInfo);
-  return { id: insertId, clientId, amount };
+  const checkedBalance = await balanceModel.checkClientBalance(clientId);
+  
+  const clientBalance = Number(checkedBalance[0].account_balance);
+  const newBalance = clientBalance + amount;
+  await balanceModel.uptadeBalance(clientId, newBalance);
+  await balanceModel.depositValues(depositInfo);
+  return { message: `${amount} deposited successfully on your account`};
 };
 
 const withdrawValues = async (withdrawInfo: IBalance) => {
