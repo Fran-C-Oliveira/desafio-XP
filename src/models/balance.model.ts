@@ -20,7 +20,7 @@ const withdrawValues = async (depositInfo: IBalance): Promise<ResultSetHeader> =
   return result as ResultSetHeader;
 };
 
-const checkClientBalance = async (clientId: number): Promise<RowDataPacket[]> => {
+const getAccountInfo = async (clientId: number): Promise<RowDataPacket[]> => {
   const [result] = await connection.execute(
     'SELECT * FROM xpStocks.clients WHERE id = ?', [clientId],
   );
@@ -35,4 +35,4 @@ const uptadeBalance = async (clientId: number, newBalance: number): Promise<Resu
   return result as ResultSetHeader;
 };
 
-export default { depositValues, uptadeBalance, checkClientBalance, withdrawValues };
+export default { depositValues, uptadeBalance, getAccountInfo, withdrawValues };
