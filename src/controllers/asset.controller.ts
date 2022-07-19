@@ -11,4 +11,14 @@ const getAssetByClientId = async (req: Request, res: Response): Promise<Response
   return res.status(201).json(asset);
 };
 
-export default { getAssetByClientId };
+const getAssetById = async (req: Request, res: Response): Promise<Response> => {
+  const { id } = req.params;
+  const assetId = Number(id);
+  const asset = await assetService.getAssetById(assetId);
+  if (asset === undefined) {
+    return res.status(400).json({ message: 'This asset is not available' });
+  }
+  return res.status(201).json(asset);
+};
+
+export default { getAssetByClientId, getAssetById };
