@@ -11,6 +11,15 @@ const depositValues = async (depositInfo: IBalance): Promise<ResultSetHeader> =>
   return result as ResultSetHeader;
 };
 
+const withdrawValues = async (depositInfo: IBalance): Promise<ResultSetHeader> => {
+  const [result] = await connection.execute<ResultSetHeader>(
+    `INSERT INTO xpStocks.balance_history(client_id, amount, balance_type) 
+      VALUES (?, ?, ?)`,
+    [depositInfo.clientId, depositInfo.amount, "withdraw"],
+  );
+  return result as ResultSetHeader;
+};
+
 const checkClientBalance = async (clientId: number): Promise<RowDataPacket[]> => {
   const [result] = await connection.execute(
     'SELECT * FROM xpStocks.clients WHERE id = ?', [clientId],
@@ -26,4 +35,4 @@ const uptadeBalance = async (clientId: number, newBalance: number): Promise<Resu
   return result as ResultSetHeader;
 };
 
-export default { depositValues, uptadeBalance, checkClientBalance };
+export default { depositValues, uptadeBalance, checkClientBalance, withdrawValues };
