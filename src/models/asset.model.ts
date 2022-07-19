@@ -3,7 +3,7 @@ import connection from '../database/connection';
 
 const getClientAssets = async (clientId: number): Promise<RowDataPacket[]> => {
   const [result] = await connection.execute(
-    `SELECT t.ticket_id, t.qty AS quantity, t.client_id, t.unit_price 
+    `SELECT t.ticket_id AS ticketId, t.qty AS quantity, t.client_id AS clientId, t.unit_price AS valor
     FROM xpStocks.transactions t
     INNER JOIN xpStocks.clients c
     ON t.client_id = c.id
