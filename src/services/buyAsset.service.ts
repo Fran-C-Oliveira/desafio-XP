@@ -11,12 +11,19 @@ const buyAsset = async (asset: IAsset) => {
   const newBalance = clientBalance - operationTotal;
   const newAmountInvested = Number(checkedBalance[0].amount_invested) + operationTotal;
   const newAvailability = availableQty - quantity;
-  
-  if(clientBalance < operationTotal || undefined) {
+  const clientAssets = await buyAssetModel.getClientAssets(assetId);
+
+  if (clientBalance < operationTotal || clientBalance === undefined) {
     return { message: `You don't have the necessary values for this operation in your account`}
   };
   if (availableQty < quantity) {
     return { message: `The total of ${quantity} is not available`}; 
+  };
+  if (clientAssets.length > 0) {
+    const newQty = Number(clientAssets[0].quantity) + quantity;
+    await buyAssetModel.updateAssetClient(assetId, newQty, clientId);
+  } else {
+    await buyAssetModel.insertAssetClient(assetId, quantity, clientId); //update client
   };
   await buyAssetModel.uptadeClientBalance(clientId, newBalance); //clients
   await buyAssetModel.updateAsset(assetId, newAvailability); //stocks
