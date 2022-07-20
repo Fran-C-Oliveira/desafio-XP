@@ -18,6 +18,14 @@ const sellAsset = async (asset: IAsset) => {
     return { message: `you dont have this asset in your wallet` };
   };
   
+  if (clientAssetsInfo.length > 0) {
+    const clientAssetQty = Number(clientAssetsInfo[0].quantity)
+    const newQty = clientAssetQty - quantity;
+    if (clientAssetQty < quantity) { 
+      return { message: `You don't have the necessary quantity of this asset in your wallet` }
+    }
+    await sellAssetModel.updateAssetClient(assetId, newQty, clientId);
+  }
 };
 
 export default { sellAsset };
