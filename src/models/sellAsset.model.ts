@@ -53,6 +53,14 @@ const uptadeClientBalance = async (clientId: number, newBalance: number): Promis
   return result as ResultSetHeader;
 };
 
+const updateClientInvestments = async (clientId: number, amountInvested: number): Promise<ResultSetHeader> => {
+  const [result] = await connection.execute<ResultSetHeader>(
+    `UPDATE xpStocks.clients SET amount_invested = ? WHERE id = ?`,
+    [amountInvested, clientId],
+  );
+  return result as ResultSetHeader;
+};
+
 export default {
   getClientAssets,
   sellAsset,
@@ -60,4 +68,5 @@ export default {
   getClientAccountInfo,
   updateAsset,
   uptadeClientBalance,
+  updateClientInvestments,
 };
