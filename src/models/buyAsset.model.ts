@@ -50,11 +50,43 @@ const updateClientInvestments = async (clientId: number, amountInvested: number)
   return result as ResultSetHeader;
 };
 
+const getClientAssets = async (assetId: number): Promise<RowDataPacket[]> => {
+  const [result] = await connection.execute(
+    `SELECT ac.ticket_id, ac.qty AS quantity, ac.client_id 
+    FROM xpStocks.asset_client ac
+    INNER JOIN xpStocks.clients c
+    ON ac.client_id = c.id
+    WHERE ac.ticket_id = ?`, [assetId],
+  );
+  return result as RowDataPacket[];
+};
+
+const insertAssetClient = async (assetId: number, quantity: number, clientId: number): Promise<ResultSetHeader> => {
+  const [result] = await connection.execute<ResultSetHeader>(
+    `INSERT INTO xpStocks.asset_client(qty, client_id, ticket_id) 
+      VALUES (?, ?, ?)`,
+      [quantity, clientId, assetId],
+    );
+
+  return result as ResultSetHeader;
+};
+
+const updateAssetClient = async (assetId: number, quantity: number, clientId: number): Promise<ResultSetHeader> => {
+  const [result] = await connection.execute<ResultSetHeader>(
+  `UPDATE xpStocks.asset_client SET qty = ? WHERE client_id = ? AND ticket_id = ?`,
+    [quantity, clientId, assetId],
+  );
+  return result as ResultSetHeader;
+};
+
 export default {
   buyAsset,
   getAssetInfo,
   getClientAccountInfo,
   updateAsset,
   uptadeClientBalance,
-  updateClientInvestments
+  updateClientInvestments,
+  updateAssetClient,
+  insertAssetClient,
+  getClientAssets
 };
