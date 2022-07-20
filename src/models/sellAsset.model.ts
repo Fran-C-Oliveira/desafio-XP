@@ -61,6 +61,14 @@ const updateClientInvestments = async (clientId: number, amountInvested: number)
   return result as ResultSetHeader;
 };
 
+const updateAssetClient = async (assetId: number, quantity: number, clientId: number): Promise<ResultSetHeader> => {
+  const [result] = await connection.execute<ResultSetHeader>(
+  `UPDATE xpStocks.asset_client SET qty = ? WHERE client_id = ? AND ticket_id = ?`,
+    [quantity, clientId, assetId],
+  );
+  return result as ResultSetHeader;
+};
+
 export default {
   getClientAssets,
   sellAsset,
@@ -69,4 +77,5 @@ export default {
   updateAsset,
   uptadeClientBalance,
   updateClientInvestments,
+  updateAssetClient,
 };
