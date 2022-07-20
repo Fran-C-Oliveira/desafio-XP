@@ -14,6 +14,10 @@ const sellAsset = async (asset: IAsset) => {
   const newAvailability = availableQty + quantity;
   const clientAssetsInfo = await sellAssetModel.getClientAssets(assetId);
 
+  if (clientAssetsInfo.length === 0) { 
+    return { message: `you dont have this asset in your wallet` };
+  };
+  
 };
 
 export default { sellAsset };
