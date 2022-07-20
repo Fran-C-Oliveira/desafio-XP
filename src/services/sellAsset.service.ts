@@ -24,8 +24,15 @@ const sellAsset = async (asset: IAsset) => {
     if (clientAssetQty < quantity) { 
       return { message: `You don't have the necessary quantity of this asset in your wallet` }
     }
-    await sellAssetModel.updateAssetClient(assetId, newQty, clientId);
+    await sellAssetModel.updateAssetClient(assetId, newQty, clientId); // update asset_client values
   }
+
+  await sellAssetModel.uptadeClientBalance(clientId, newBalance); //clients
+  await sellAssetModel.updateAsset(assetId, newAvailability); //stocks
+  await sellAssetModel.sellAsset(asset); //transactions
+  await sellAssetModel.updateClientInvestments(clientId, newAmountInvested) //update client amount_invested
+
+  return { message: `You sold ${operationTotal} of ${assetInfos[0].ticket} successfully`}
 };
 
 export default { sellAsset };
