@@ -1,7 +1,6 @@
 import sellAssetModel from '../models/sellAsset.model';
 import { IAsset } from '../interfaces/asset.interface';
 
-
 const sellAsset = async (asset: IAsset) => {
   const { assetId, quantity, clientId } = asset;
   const checkedBalance = await sellAssetModel.getClientAccountInfo(clientId);
