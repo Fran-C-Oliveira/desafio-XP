@@ -37,10 +37,18 @@ const getClientAccountInfo = async (clientId: number): Promise<RowDataPacket[]> 
   return result as RowDataPacket[];
 };
 
+const updateAsset = async (assetId: number, quantity: number): Promise<ResultSetHeader> => {
+  const [result] = await connection.execute<ResultSetHeader>(
+    'UPDATE xpStocks.stocks SET available_qty = ? WHERE id = ?', 
+    [quantity, assetId],
+  );
+  return result as ResultSetHeader;
+};
 
 export default {
   getClientAssets,
   sellAsset,
   getAssetInfo,
   getClientAccountInfo,
+  updateAsset,
 };
