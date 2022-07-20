@@ -7,8 +7,8 @@ const depositValues = async (depositInfo: IBalance) => {
   
   const clientBalance = Number(checkedBalance[0].account_balance);
   const newBalance = clientBalance + amount;
-  await balanceModel.uptadeBalance(clientId, newBalance);
   await balanceModel.depositValues(depositInfo);
+  await balanceModel.uptadeBalance(clientId, newBalance);
   return { message: `${amount} deposited successfully on your account`};
 };
 
