@@ -11,11 +11,11 @@ const getAssetInfo = async (ticketId: number): Promise<RowDataPacket[]> => {
 
 const getClientAssets = async (assetId: number): Promise<RowDataPacket[]> => {
   const [result] = await connection.execute(
-    `SELECT t.ticket_id, t.qty AS quantity, t.client_id 
-    FROM xpStocks.transactions t
+    `SELECT ac.ticket_id, ac.qty AS quantity, ac.client_id 
+    FROM xpStocks.asset_client ac
     INNER JOIN xpStocks.clients c
-    ON t.client_id = c.id
-    WHERE t.ticket_id = ?`, [assetId],
+    ON ac.client_id = c.id
+    WHERE ac.ticket_id = ?`, [assetId],
   );
   return result as RowDataPacket[];
 };
@@ -30,4 +30,17 @@ const sellAsset = async (asset: IAsset): Promise<ResultSetHeader> => {
   return result as ResultSetHeader;
 };
 
-export default { getClientAssets, sellAsset, getAssetInfo };
+const getClientAccountInfo = async (clientId: number): Promise<RowDataPacket[]> => {
+  const [result] = await connection.execute(
+    'SELECT * FROM xpStocks.clients WHERE id = ?', [clientId],
+  );
+  return result as RowDataPacket[];
+};
+
+
+export default {
+  getClientAssets,
+  sellAsset,
+  getAssetInfo,
+  getClientAccountInfo,
+};
