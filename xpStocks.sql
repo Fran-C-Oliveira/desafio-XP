@@ -52,7 +52,7 @@ CREATE TABLE xpStocks.balance_history(
   amount DECIMAL(10,2) NOT NULL,
   date DATETIME DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (client_id)
-    REFERENCES xpStocks.transactions (id)
+    REFERENCES xpStocks.clients (id)
     ON DELETE CASCADE
 );
 
