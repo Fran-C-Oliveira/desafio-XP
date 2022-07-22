@@ -55,4 +55,19 @@ describe('2 - Validations for endpoint GET at assets/assetId route', () => {
     expect(result.statusCode).toEqual(400);
     expect(result.body).toEqual({ "message": 'This asset is not available' });
   });
+  
+  it('Validate if it is possible to list a asset by its id successfully', async () => {
+
+    const asset = {
+      assetId: 3,
+      quantity: 100,
+      valor: 94.31
+    };
+
+    (<jest.Mock>assetService.getAssetById).mockReturnValue(asset);
+    const result = await request(app).get('/assets/3');
+    
+    expect(result.statusCode).toEqual(201);
+    expect(result.body).toEqual(asset);
+  });
 });
