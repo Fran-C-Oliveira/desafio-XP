@@ -1,6 +1,6 @@
 import assetModel from '../models/asset.model';
 
-const getByClientId = async (clientId: number) => {
+const getAssetsByClientId = async (clientId: number) => {
   const asset = await assetModel.getClientAssets(clientId);
   try {
     return asset;
@@ -26,4 +26,4 @@ const getAssetById = async (assetId: number) => {
   }
 };
 
-export default { getByClientId, getAssetById };
+export default { getAssetsByClientId, getAssetById };
