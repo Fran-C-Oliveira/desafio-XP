@@ -47,4 +47,12 @@ describe('2 - Validations for endpoint GET at assets/assetId route', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
+
+  it('Validate if returns error if asset is not available', async () => {
+    (<jest.Mock>assetService.getAssetById).mockReturnValue(undefined);
+    const result = await request(app).get('/assets/3');
+
+    expect(result.statusCode).toEqual(400);
+    expect(result.body).toEqual({ "message": 'This asset is not available' });
+  });
 });
