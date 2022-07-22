@@ -17,4 +17,26 @@ describe("1 - Validations for endpoint GET at assets route", () => {
     expect(result.statusCode).toEqual(400);
     expect(result.body).toEqual({"message":"This asset is not available"})
   });
+  it('Validate if it is possible to find a asset by its id sucessfully', async () => {
+    const assets = [
+      {
+        ticketId: 1,
+        quantity: 2,
+        clientId: 2,
+        valor: 68.37,
+      },
+      {
+        ticketId: 1,
+        quantity: 2,
+        clientId: 2,
+        valor: 68.37,
+      },
+    ];
+    (<jest.Mock>assetService.getAssetsByClientId).mockReturnValue(assets);
+    const result = await request(app).get('/assets/client/3');
+    console.log(result.body);
+    
+    expect(result.statusCode).toEqual(201);
+    expect(result.body).toEqual(assets);
+  });
 });
