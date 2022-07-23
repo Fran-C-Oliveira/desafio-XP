@@ -78,6 +78,7 @@ describe('It is possible to withdraw from the account', () => {
     expect(response.body).toEqual({ message: `${withdraw.amount} withdrawal successfully completed` });
     expect(afterBalanceInfo).toEqual(500);
   });
+  
   it('It is not possible to withdraw an amount greater than what is available', async () => {
     const withdraw = {
       clientId: 1,
@@ -96,8 +97,8 @@ describe('It is possible to withdraw from the account', () => {
   });
 });
 
-describe.only('You can track account information', () => {
-  const previewBalanceInfo = [{
+describe('You can track account information', () => {
+  const accountInfo = [{
     id: 1,
     clientName: "client01",
     accountBalance: 1500,
@@ -112,25 +113,18 @@ describe.only('You can track account information', () => {
   });
 
   it('When the clientId is valid', async () => {
-    const accountInfo = {
-      id: 1,
-      clientName: "client01",
-      accountBalance: 1500,
-      amountInvested: 0
-    };
     (<jest.Mock>balanceModel.getAccountInfo).mockReturnValue(accountInfo);
     const result = await request(app).get('/account/1');
-    console.log(result);
     
     expect(result.statusCode).toEqual(201);
-    expect(result.body).toEqual(accountInfo);
-    
+    expect(result.body).toEqual(accountInfo[0]);
   });
+  
   it('When the clientId is not valid', async () => {
-    const invalidAccountId = 'n';
-    (<jest.Mock>balanceModel.getAccountInfo).mockReturnValue(undefined);
-    const result = await request(app).get(`/account/${invalidAccountId}`);
+     const invalidAccountId = undefined || [];
+    (<jest.Mock>balanceModel.getAccountInfo).mockReturnValue(invalidAccountId);
+    const result = await request(app).get('/account/1500');
     expect(result.statusCode).toEqual(400);
-    expect(result.body).toEqual({ "message": 'This client does not possess any assets' });
+    expect(result.body).toEqual({ message: 'Invalid account number' });
   });
 });
