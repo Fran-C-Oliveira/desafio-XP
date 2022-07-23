@@ -76,4 +76,21 @@ describe('Test if it is possible to buy stocks', () => {
     );
   });
   
+  it('It is possible to client to buy assets', async () => {
+    (<jest.Mock>buyAssetModel.getClientAccountInfo).mockReturnValue(clientBalancePositive);
+    (<jest.Mock>buyAssetModel.getAssetInfo).mockReturnValue(assetInfo);
+    (<jest.Mock>buyAssetModel.getClientAssets).mockReturnValue([]);
+
+    const response = await request(app).post('/investments/buy')
+    .set('Content-type', 'application/json')
+    .send(buyInfo);
+
+    const operationTotal = buyInfo.quantity * Number(assetInfo[0].unit_price);
+
+    expect(response.statusCode).toBe(201);
+    expect(response.body).toEqual(
+      { message: `${operationTotal} invested in ${assetInfo[0].ticket} successfully`}
+    );
+
+  });
 });
