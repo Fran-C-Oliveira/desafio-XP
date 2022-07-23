@@ -1,8 +1,9 @@
 import assetModel from '../models/asset.model';
 
 const getAssetsByClientId = async (clientId: number) => {
-  const asset = await assetModel.getClientAssets(clientId);
+  let asset;
   try {
+    asset = await assetModel.getClientAssets(clientId);
     return asset;
   } catch(e) {
     if (asset === undefined) {
@@ -12,8 +13,9 @@ const getAssetsByClientId = async (clientId: number) => {
 };
 
 const getAssetById = async (assetId: number) => {
-  const asset = await assetModel.getAssetById(assetId);
+  let asset;
   try {
+    asset = await assetModel.getAssetById(assetId);
     return {
       assetId: assetId,
       quantity: Number(asset[0].available_qty),
