@@ -21,7 +21,13 @@ const buyAsset = async (asset: IAsset): Promise<ResultSetHeader> => {
 
 const getClientAccountInfo = async (clientId: number): Promise<RowDataPacket[]> => {
   const [result] = await connection.execute(
-    'SELECT * FROM xpStocks.clients WHERE id = ?', [clientId],
+    `SELECT 
+      id,
+      client_name as clientName,
+      account_balance as accountBalance,
+      amount_invested as amountInvested
+    FROM xpStocks.clients 
+    WHERE id = ?`, [clientId],
   );
   return result as RowDataPacket[];
 };
