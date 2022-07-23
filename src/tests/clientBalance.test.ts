@@ -111,5 +111,19 @@ describe.only('You can track account information', () => {
     jest.clearAllMocks();
   });
 
-  
+  it('When the clientId is valid', async () => {
+    const accountInfo = {
+      id: 1,
+      clientName: "client01",
+      accountBalance: 1500,
+      amountInvested: 0
+    };
+    (<jest.Mock>balanceModel.getAccountInfo).mockReturnValue(accountInfo);
+    const result = await request(app).get('/account/1');
+    console.log(result);
+    
+    expect(result.statusCode).toEqual(201);
+    expect(result.body).toEqual(accountInfo);
+    
+  });
 });
