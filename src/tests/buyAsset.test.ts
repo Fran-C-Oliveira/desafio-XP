@@ -1,8 +1,8 @@
 import request from 'supertest';
 import app from '../app';
-import buyAssetModel from '../models/buyAsset.model';
+import buyAssetModel from '../models/investment.model';
 
-jest.mock('../models/buyAsset.model');
+jest.mock('../models/investment.model');
 
 describe('Test if it is possible to buy stocks', () => {
   const clientBalancePositive = [{
@@ -61,7 +61,7 @@ describe('Test if it is possible to buy stocks', () => {
       `The total of ${buyInfoQtyAbove.quantity} is not available`
     );
   });
-  
+
   it('purchase amount cannot be greater than the amount available on account', async () => {
     (<jest.Mock>buyAssetModel.getClientAccountInfo).mockReturnValue(clientBalanceNegative);
     (<jest.Mock>buyAssetModel.getAssetInfo).mockReturnValue(assetInfo);
