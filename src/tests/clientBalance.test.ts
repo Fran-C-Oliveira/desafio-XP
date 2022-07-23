@@ -78,4 +78,20 @@ describe('It is possible to withdraw from the account', () => {
     expect(response.body).toEqual({ message: `${withdraw.amount} withdrawal successfully completed` });
     expect(afterBalanceInfo).toEqual(500);
   });
+  it('It is not possible to withdraw an amount greater than what is available', async () => {
+    const withdraw = {
+      clientId: 1,
+      amount: 2000
+    };
+    
+    (<jest.Mock>balanceModel.getAccountInfo).mockReturnValue(previewBalanceInfo);
+    const response = await request(app).post('/account/withdraw')
+      .set('Content-type', 'application/json')
+      .send(withdraw);
+    
+    expect(response.statusCode).toBe(400);
+    expect(response.body).toEqual(
+      { message: `You don't have the necessary values for this operation in your account`}
+    );
+  });
 });
