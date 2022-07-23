@@ -34,4 +34,16 @@ describe('It is possible to deposit into the account', () => {
       { message: `${deposit.amount} deposited successfully on your account` }
     );
   });
+  it('When depositing, the amounts are correctly recorded in the account', async () => {
+    (<jest.Mock>balanceModel.getAccountInfo).mockReturnValue(previewBalanceInfo);
+
+    const response = await request(app).post('/account/deposit')
+      .set('Content-type', 'application/json')
+      .send(deposit);
+
+    const afterBalanceInfo = previewBalanceInfo[0].accountBalance + deposit.amount;
+
+    expect(response.statusCode).toBe(201);
+    expect(afterBalanceInfo).toEqual(2000);
+  });
 });
