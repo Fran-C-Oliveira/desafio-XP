@@ -61,6 +61,7 @@ describe('Test if it is possible to buy stocks', () => {
       `The total of ${buyInfoQtyAbove.quantity} is not available`
     );
   });
+  
   it('purchase amount cannot be greater than the amount available on account', async () => {
     (<jest.Mock>buyAssetModel.getClientAccountInfo).mockReturnValue(clientBalanceNegative);
     (<jest.Mock>buyAssetModel.getAssetInfo).mockReturnValue(assetInfo);
@@ -91,6 +92,5 @@ describe('Test if it is possible to buy stocks', () => {
     expect(response.body).toEqual(
       { message: `${operationTotal} invested in ${assetInfo[0].ticket} successfully`}
     );
-
   });
 });
