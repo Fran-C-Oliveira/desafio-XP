@@ -1,4 +1,4 @@
-import buyAssetModel from '../models/buyAsset.model';
+import buyAssetModel from '../models/investment.model';
 import { IAsset } from '../interfaces/asset.interface';
 
 const buyAsset = async (asset: IAsset) => {
