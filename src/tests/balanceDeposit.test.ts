@@ -3,7 +3,7 @@ import app from '../app';
 import balanceModel from '../models/balance.model';
 
 jest.mock('../models/balance.model');
-describe('É possível depositar na conta', () => {
+describe('It is possible to deposit into the account', () => {
   const previewBalanceInfo = [{
     id: 1,
     clientName: "client01",
@@ -22,5 +22,16 @@ describe('É possível depositar na conta', () => {
     jest.clearAllMocks();
   });
 
+  it('When depositing, the amounts are registered in the account', async () => {
+  (<jest.Mock>balanceModel.getAccountInfo).mockReturnValue(previewBalanceInfo);
+  
+  const response = await request(app).post('/account/deposit')
+    .set('Content-type', 'application/json')
+    .send(deposit);
+  
+  expect(response.statusCode).toBe(201);
+  expect(response.body).toEqual(
+      { message: `${deposit.amount} deposited successfully on your account` }
+    );
+  });
 });
-
