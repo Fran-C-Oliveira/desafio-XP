@@ -61,5 +61,19 @@ describe('Test if it is possible to buy stocks', () => {
       `The total of ${buyInfoQtyAbove.quantity} is not available`
     );
   });
+  it('purchase amount cannot be greater than the amount available on account', async () => {
+    (<jest.Mock>buyAssetModel.getClientAccountInfo).mockReturnValue(clientBalanceNegative);
+    (<jest.Mock>buyAssetModel.getAssetInfo).mockReturnValue(assetInfo);
+    (<jest.Mock>buyAssetModel.getClientAssets).mockReturnValue([]);
 
+    const response = await request(app).post('/investments/buy')
+    .set('Content-type', 'application/json')
+    .send(buyInfo);
+
+    expect(response.statusCode).toBe(400);
+    expect(response.body).toEqual(
+      `You don't have the necessary amount for this operation in your account`
+    );
+  });
+  
 });
