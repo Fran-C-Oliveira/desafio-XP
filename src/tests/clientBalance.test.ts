@@ -95,3 +95,21 @@ describe('It is possible to withdraw from the account', () => {
     );
   });
 });
+
+describe.only('You can track account information', () => {
+  const previewBalanceInfo = [{
+    id: 1,
+    clientName: "client01",
+    accountBalance: 1500,
+    amountInvested: 0
+  }];
+
+  beforeEach(() => {
+    balanceModel.getAccountInfo = jest.fn();
+  });
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  
+});
