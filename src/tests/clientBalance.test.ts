@@ -126,4 +126,11 @@ describe.only('You can track account information', () => {
     expect(result.body).toEqual(accountInfo);
     
   });
+  it('When the clientId is not valid', async () => {
+    const invalidAccountId = 'n';
+    (<jest.Mock>balanceModel.getAccountInfo).mockReturnValue(undefined);
+    const result = await request(app).get(`/account/${invalidAccountId}`);
+    expect(result.statusCode).toEqual(400);
+    expect(result.body).toEqual({ "message": 'This client does not possess any assets' });
+  });
 });
