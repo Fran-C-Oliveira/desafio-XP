@@ -28,4 +28,9 @@ const getAssetById = async (assetId: number) => {
   }
 };
 
-export default { getAssetsByClientId, getAssetById };
+const getAllAssets = async () => {
+  const assetList = await assetModel.getAllAssets();
+  return assetList;
+};
+
+export default { getAssetsByClientId, getAssetById, getAllAssets };
