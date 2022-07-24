@@ -19,4 +19,11 @@ const getAssetById = async (ticketId: number): Promise<RowDataPacket[]> => {
   return result as RowDataPacket[];
 };
 
-export default { getClientAssets, getAssetById };
+const getAllAssets = async (): Promise<RowDataPacket[]> => {
+  const [result] = await connection.execute(
+    'SELECT * FROM xpStocks.stocks'
+  );
+  return result as RowDataPacket[];
+};
+
+export default { getClientAssets, getAssetById, getAllAssets };
