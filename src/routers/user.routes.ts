@@ -4,6 +4,7 @@ import userController from '../controllers/user.controller';
 
 const routers = Router();
 
-routers.post('/login', userController.createUserToken);
+routers.post('/register', userController.createNewUser);
+routers.post('/login', userController.createLoginToken);
 
 export default routers;
