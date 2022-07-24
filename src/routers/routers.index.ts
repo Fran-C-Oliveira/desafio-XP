@@ -2,11 +2,16 @@ import { Router } from 'express';
 import investmentRoutes from './investment.routes';
 import assetRoutes from './asset.routes';
 import balanceRoutes from './balance.routes';
+import userRoutes from './user.routes';
+
+import validateClientToken from '../middlewares/validateClientToken';
+import httpErrorMiddleware from '../middlewares/httpException.middleware';
 
 const routers = Router();
 
-routers.use('/investments', investmentRoutes);
-routers.use('/assets', assetRoutes);
-routers.use('/account', balanceRoutes);
+routers.use('/investments', httpErrorMiddleware, validateClientToken, investmentRoutes);
+routers.use('/assets', httpErrorMiddleware, validateClientToken, assetRoutes);
+routers.use('/account', httpErrorMiddleware, validateClientToken, balanceRoutes);
+routers.use('/user', httpErrorMiddleware, userRoutes);
 
 export default routers;
