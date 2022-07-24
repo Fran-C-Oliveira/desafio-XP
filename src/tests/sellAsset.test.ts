@@ -1,8 +1,11 @@
 import request from 'supertest';
 import app from '../app';
 import sellAssetModel from '../models/investment.model';
+import auth from '../auth/jwt.auth';
 
 jest.mock('../models/investment.model');
+jest.mock('../auth/jwt.auth');
+const validToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9';
 
 describe('Test if it is possible to sell stocks', () => {
   const clientBalance = [{
@@ -39,6 +42,7 @@ describe('Test if it is possible to sell stocks', () => {
     sellAssetModel.getClientAccountInfo = jest.fn();
     sellAssetModel.getAssetInfo = jest.fn();
     sellAssetModel.getClientAssets = jest.fn();
+    (<jest.Mock>auth.checkUserToken).mockReturnValue(validToken);
   });
   afterEach(() => {
     jest.clearAllMocks();
