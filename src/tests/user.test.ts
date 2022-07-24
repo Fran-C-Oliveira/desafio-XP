@@ -59,13 +59,30 @@ describe('1 - Test register new user', () => {
 
     expect(response.statusCode).toBe(201);
     expect(response.body).toEqual({token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9' });
-
   });
-
-
 });
 
 describe('2 - Test login', () => {
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9';
 
+  const userExists = [{
+    id: 10,
+    name: "client10",
+    email: "client10@client10.com",
+    password: "client10pass"
+  }];
+
+  beforeEach(() => {
+    userModel.checkUserByEmail = jest.fn();
+    tokenAuth.generateJWTToken = jest.fn();
+  });
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('Test if it is not possible to login with invalid user information', async () => {
+
+  });
   it('', () => {});
+  
 });
