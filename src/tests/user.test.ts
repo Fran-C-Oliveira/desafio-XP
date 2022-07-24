@@ -42,6 +42,23 @@ describe('1 - Test register new user', () => {
   });
 
   it('Test if is possible to create a new user', async () => {
+    const clientId = 11;
+    const user = {
+      id: 11,
+      email: 'client22@client04.com',
+      name: 'client05',
+      password: 'client05pass',
+    };
+    (<jest.Mock>userModel.checkUserByEmail).mockReturnValue([]);
+    (<jest.Mock>userModel.createNewUser).mockReturnValue(clientId);
+    (<jest.Mock>tokenAuth.generateJWTToken).mockReturnValue(token);
+
+    const response = await request(app).post('/register')
+      .set('Content-type', 'application/json')
+      .send(newUser);
+
+    expect(response.statusCode).toBe(201);
+    expect(response.body).toEqual({token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9' });
 
   });
 
