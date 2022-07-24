@@ -11,4 +11,18 @@ const createNewUser = async (user: IUser) => {
   return jwtAuth.generateJWTToken({ id: insertId, ...user });
 };
 
-export default { createNewUser };
+const createLoginToken = async (user: IUser) => {
+  const userInfo = await userModel.checkUserByEmail(user.email);
+  const email = userInfo[0].email;
+  const password = userInfo[0].password;
+  const userId = userInfo[0].id;
+  if (user.email !== email) {
+    throw new Error('Invalid email');
+  };
+  if (user.password !== password) {
+    throw new Error('Invalid password');
+  };
+  return jwtAuth.generateJWTToken({ id: userId, ...user });
+};
+
+export default { createNewUser , createLoginToken };
