@@ -78,3 +78,47 @@ describe('2 - Validations for endpoint GET at assets/assetId route', () => {
     expect(result.body).toEqual(asset);
   });
 });
+
+describe('Validations for endpoint GET at /assets/all route', () => {
+  beforeEach(() => {
+    assetService.getAllAssets = jest.fn();
+    auth.checkUserToken = jest.fn();
+    (<jest.Mock>auth.checkUserToken).mockReturnValue(validToken);
+  });
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+  
+  it('Validate if it is possible to list all assets successfully', async () => {
+
+    const assetList = [
+      {
+        id: 3,
+        ticket: "XPBR31",
+        sector: "Financeiro",
+        available_qty: 90,
+        unit_price: 94.31
+      },
+      {
+        id: 4,
+        ticket: "MGLU3",
+        sector: "Consumo Cíclico",
+        available_qty: 100,
+        unit_price: 2.78
+      },
+      {
+        id: 5,
+        ticket: "RAIL3",
+        sector: "Bens Industriais",
+        available_qty: 100,
+        unit_price: 15.34
+      },
+    ];
+
+    (<jest.Mock>assetService.getAllAssets).mockReturnValue(assetList);
+    const result = await request(app).get('/assets/All');
+    expect(result.statusCode).toEqual(201);
+    expect(result.body).toEqual(assetList);
+  });
+});
+
