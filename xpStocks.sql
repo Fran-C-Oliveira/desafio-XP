@@ -4,6 +4,7 @@ CREATE SCHEMA IF NOT EXISTS xpStocks;
 CREATE TABLE xpStocks.clients (
   id INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
   client_name VARCHAR(30) NOT NULL,
+  email VARCHAR(50) NOT NULL,
   account_balance DECIMAL(10,2) NOT NULL,
   amount_invested DECIMAL(10,2) NOT NULL,
   password TEXT NOT NULL
@@ -57,11 +58,11 @@ CREATE TABLE xpStocks.balance_history(
 );
 
 INSERT INTO
-  xpStocks.clients (client_name, account_balance, amount_invested, password)
+  xpStocks.clients (client_name, email, account_balance, amount_invested, password)
 VALUES
-  ("client01", 1000, 0, "client01Pass"),
-  ("client02", 200, 970.9, "client02Pass"),
-  ("client03", 0, 0, "client03Pass");
+  ("client01", "client01@client01.com", 1000, 0, "client01Pass"),
+  ("client02", "client01@client02.com", 200, 970.9, "client02Pass"),
+  ("client03", "client01@client03.com", 0, 0, "client03Pass");
 
 INSERT INTO
   xpStocks.stocks (ticket, sector, available_qty, unit_price)
