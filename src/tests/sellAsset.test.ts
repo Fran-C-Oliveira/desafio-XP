@@ -72,4 +72,26 @@ describe('Test if it is possible to sell stocks', () => {
     );
   });
   
+  it('It is possible to client to sell assets', async () => {
+    (<jest.Mock>sellAssetModel.getClientAccountInfo).mockReturnValue(clientBalance);
+    (<jest.Mock>sellAssetModel.getAssetInfo).mockReturnValue(assetInfo);
+    (<jest.Mock>sellAssetModel.getClientAssets).mockReturnValue(clientAssetsInfo);
+
+    const newSell = {
+      assetId: 3,
+      quantity: 5,
+      clientId: 1
+    };
+
+    const response = await request(app).post('/investments/sell')
+      .set('Content-type', 'application/json')
+      .send(newSell);
+
+    const operationTotal = newSell.quantity * Number(assetInfo[0].unit_price);
+
+    expect(response.statusCode).toBe(201);
+    expect(response.body).toEqual(
+      { message: `You sold ${operationTotal} of ${assetInfo[0].ticket} successfully`}
+    );
+  });
 });
