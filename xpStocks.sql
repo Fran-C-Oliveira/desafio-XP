@@ -5,8 +5,8 @@ CREATE TABLE xpStocks.clients (
   id INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
   client_name VARCHAR(30) NOT NULL,
   email VARCHAR(50) NOT NULL,
-  account_balance DECIMAL(10,2) NOT NULL,
-  amount_invested DECIMAL(10,2) NOT NULL,
+  account_balance DECIMAL(10,2) NOT NULL DEFAULT 0,
+  amount_invested DECIMAL(10,2) NOT NULL DEFAULT 0,
   password TEXT NOT NULL
 );
 
