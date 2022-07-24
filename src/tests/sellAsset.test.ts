@@ -58,4 +58,18 @@ describe('Test if it is possible to sell stocks', () => {
     );
   });
 
+  it('Amount of asset to be sold cannot be greater than the amount available at the client wallet', async () => {
+    (<jest.Mock>sellAssetModel.getClientAccountInfo).mockReturnValue(clientBalance);
+    (<jest.Mock>sellAssetModel.getAssetInfo).mockReturnValue(assetInfo);
+    (<jest.Mock>sellAssetModel.getClientAssets).mockReturnValue(clientAssetsInfo);
+    const response = await request(app).post('/investments/sell')
+      .set('Content-type', 'application/json')
+      .send(sellInfo);
+
+    expect(response.statusCode).toBe(400);
+    expect(response.body).toEqual(
+      `You don't have the necessary quantity of this asset in your wallet`
+    );
+  });
+  
 });
