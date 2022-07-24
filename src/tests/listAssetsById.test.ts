@@ -1,11 +1,17 @@
 import request from 'supertest';
 import app from '../app';
 import assetService from '../services/asset.service';
+import auth from '../auth/jwt.auth';
 
 jest.mock('../services/asset.service');
+jest.mock('../auth/jwt.auth');
+const validToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9';
+
 describe('1 - Validations for endpoint GET at assets/clients route', () => {
   beforeEach(() => {
     assetService.getAssetsByClientId = jest.fn();
+    auth.checkUserToken = jest.fn();
+    (<jest.Mock>auth.checkUserToken).mockReturnValue(validToken);
   });
   afterEach(() => {
     jest.clearAllMocks();
@@ -43,6 +49,7 @@ describe('1 - Validations for endpoint GET at assets/clients route', () => {
 describe('2 - Validations for endpoint GET at assets/assetId route', () => {
   beforeEach(() => {
     assetService.getAssetById = jest.fn();
+    (<jest.Mock>auth.checkUserToken).mockReturnValue(validToken);
   });
   afterEach(() => {
     jest.clearAllMocks();
