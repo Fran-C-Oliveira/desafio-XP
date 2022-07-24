@@ -12,6 +12,14 @@ describe('Test if it is possible to sell stocks', () => {
     amountInvested: 0
   }];
 
+  const clientAssetsInfo = [
+    {
+      ticketId: 3,
+      quantity: 10,
+      clientId: 1,
+      valor: 94.31
+    }
+  ];
 
   const assetInfo = [{
     id: 3,
@@ -22,7 +30,7 @@ describe('Test if it is possible to sell stocks', () => {
   }];
 
   const sellInfo = {
-    assetId: 1,
+    assetId: 3,
     quantity: 20,
     clientId: 1
   };
@@ -34,6 +42,20 @@ describe('Test if it is possible to sell stocks', () => {
   });
   afterEach(() => {
     jest.clearAllMocks();
+  });
+
+  it('Amount of asset to be sold cannot be zero', async () => {
+    (<jest.Mock>sellAssetModel.getClientAccountInfo).mockReturnValue(clientBalance);
+    (<jest.Mock>sellAssetModel.getAssetInfo).mockReturnValue(assetInfo);
+    (<jest.Mock>sellAssetModel.getClientAssets).mockReturnValue([]);
+    const response = await request(app).post('/investments/sell')
+      .set('Content-type', 'application/json')
+      .send(sellInfo);
+
+    expect(response.statusCode).toBe(400);
+    expect(response.body).toEqual(
+      `You dont have this asset in your wallet`
+    );
   });
 
 });
