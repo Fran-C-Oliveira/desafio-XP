@@ -21,4 +21,9 @@ const getAssetById = async (req: Request, res: Response): Promise<Response> => {
   return res.status(201).json(asset);
 };
 
-export default { getAssetByClientId, getAssetById };
+const listAllAssets = async (req: Request, res: Response): Promise<Response> => {
+  const assetList = await assetService.getAllAssets();
+  return res.status(201).json(assetList);
+};
+
+export default { getAssetByClientId, getAssetById, listAllAssets };
