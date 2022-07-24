@@ -72,6 +72,21 @@ describe('2 - Test login', () => {
     password: "client10pass"
   }];
 
+  const login = {
+    email: "client10@client10.com",
+    password: "client10pass"
+  };
+
+  const wrongEmail = {
+    email: "client@client10.com",
+    password: "client10pass"
+  };
+
+  const wrongPass = {
+    email: "client10@client10.com",
+    password: "clientpass"
+  };
+
   beforeEach(() => {
     userModel.checkUserByEmail = jest.fn();
     tokenAuth.generateJWTToken = jest.fn();
@@ -80,9 +95,20 @@ describe('2 - Test login', () => {
     jest.clearAllMocks();
   });
 
-  it('Test if it is not possible to login with invalid user information', async () => {
+  it('Test if it is not possible to login with invalid user email', async () => {
+    (<jest.Mock>userModel.checkUserByEmail).mockReturnValue(userExists);
+    (<jest.Mock>tokenAuth.generateJWTToken).mockReturnValue(token);
 
+    const responseEmail = await request(app).post('/login')
+      .set('Content-type', 'application/json')
+      .send(wrongEmail);
+
+      expect(responseEmail.statusCode).toBe(400);
+      expect(responseEmail.body).toEqual('Invalid email');
   });
-  it('', () => {});
+
+  it('Test if it is not possible to login with invalid user password', async () => {
+  });
+  it('Test if it is possible to login', async () => {});
   
 });
