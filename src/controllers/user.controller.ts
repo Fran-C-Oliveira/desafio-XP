@@ -11,4 +11,13 @@ const createNewUser = async (req: Request, res: Response): Promise<Response> => 
   };
 };
 
-export default { createNewUser };
+const createLoginToken = async (req: Request, res: Response): Promise<Response> => {
+  try { 
+    const token = await userService.createLoginToken(req.body);
+    return res.status(201).json({ token });
+  } catch (error) {
+    return reportError(res, { message: getErrorMessage(error) });
+  };
+};
+
+export default { createNewUser, createLoginToken };
