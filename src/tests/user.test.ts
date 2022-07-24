@@ -118,6 +118,15 @@ describe('2 - Test login', () => {
       expect(responsePassword.statusCode).toBe(400);
       expect(responsePassword.body).toEqual('Invalid password');
   });
-  it('Test if it is possible to login', async () => {});
-  
+
+  it('Test if it is possible to login', async () => {
+    (<jest.Mock>userModel.checkUserByEmail).mockReturnValue(userExists);
+    (<jest.Mock>tokenAuth.generateJWTToken).mockReturnValue(token);
+
+      const response = await request(app).post('/login')
+      .set('Content-type', 'application/json')
+      .send(login);
+
+    expect(response.statusCode).toBe(201);
+  });
 });
