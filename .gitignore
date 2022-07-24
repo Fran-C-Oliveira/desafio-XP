@@ -40,4 +40,6 @@ dist/**/*
 
 # ignore .lock
 yarn.lock
-package.lock
+package-lock.json
+node_modules/.package-lock.json
+package-lock.json

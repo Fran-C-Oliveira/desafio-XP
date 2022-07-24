@@ -17,7 +17,7 @@ const withdrawValues = async (withdrawInfo: IBalance) => {
   
   const clientBalance = Number(checkedBalance[0].accountBalance);
   if (clientBalance < amount) {
-    return { message: `You don't have the necessary values for this operation in your account`}
+    throw new Error();
   }
   const newBalance = clientBalance - amount;
   await balanceModel.uptadeBalance(clientId, newBalance);
@@ -27,18 +27,15 @@ const withdrawValues = async (withdrawInfo: IBalance) => {
 
 const getAccountInfo = async (clientId: number) => {
   const accountInfo = await balanceModel.getAccountInfo(clientId);
-  try {
-    return { 
-      id: clientId,
-      clientName: accountInfo[0].clientName,
-      accountBalance: Number(accountInfo[0].accountBalance),
-      amountInvested: Number(accountInfo[0].amountInvested)
-    }
-  } catch(e) {
-    if (!accountInfo) {
-      return { message: 'Invalid account number'};
-    };
-  }  
+  if (!accountInfo) {
+    throw new Error();
+  };
+  return { 
+    id: clientId,
+    clientName: accountInfo[0].clientName,
+    accountBalance: Number(accountInfo[0].accountBalance),
+    amountInvested: Number(accountInfo[0].amountInvested)
+  }
 };
 
 export default { depositValues, withdrawValues, getAccountInfo };
