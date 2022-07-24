@@ -2,7 +2,7 @@ import { JwtPayload, sign, SignOptions, verify } from 'jsonwebtoken';
 import IUser from '../interfaces/user.interface';
 import HttpException from '../utils/http.exception';
 
-const TOKEN_SECRET = process.env.TOKEN_SECRET || 'chavedotoken';
+const TOKEN_SECRET = process.env.TOKEN_SECRET || 'minhasenhaXP';
 
 const jwtConfig: SignOptions = {
     expiresIn: '15m',
@@ -24,4 +24,4 @@ const checkUserToken = async (token: string | undefined): Promise<string | JwtPa
     }
 }
 
-export { generateJWTToken, checkUserToken }
+export default { generateJWTToken, checkUserToken };
