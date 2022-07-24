@@ -1,8 +1,12 @@
 import request from 'supertest';
 import app from '../app';
 import balanceModel from '../models/balance.model';
+import auth from '../auth/jwt.auth';
 
 jest.mock('../models/balance.model');
+jest.mock('../auth/jwt.auth');
+const validToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9';
+
 describe('It is possible to deposit into the account', () => {
   const previewBalanceInfo = [{
     id: 1,
@@ -17,6 +21,7 @@ describe('It is possible to deposit into the account', () => {
 
   beforeEach(() => {
     balanceModel.getAccountInfo = jest.fn();
+    (<jest.Mock>auth.checkUserToken).mockReturnValue(validToken);
   });
   afterEach(() => {
     jest.clearAllMocks();
@@ -58,6 +63,7 @@ describe('It is possible to withdraw from the account', () => {
 
   beforeEach(() => {
     balanceModel.getAccountInfo = jest.fn();
+    (<jest.Mock>auth.checkUserToken).mockReturnValue(validToken);
   });
   afterEach(() => {
     jest.clearAllMocks();
@@ -107,6 +113,7 @@ describe('You can track account information', () => {
 
   beforeEach(() => {
     balanceModel.getAccountInfo = jest.fn();
+    (<jest.Mock>auth.checkUserToken).mockReturnValue(validToken);
   });
   afterEach(() => {
     jest.clearAllMocks();
