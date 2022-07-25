@@ -48,7 +48,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"client05\",\n    \"email\": \"client22@client04.com\",\n    \"password\": \"client05pass\"\n}",
+					"raw": "{\n    \"name\": \"client25\",\n    \"email\": \"client25@client25.com\",\n    \"password\": \"client25pass\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -226,14 +226,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/assets/client/1",
+					"raw": "http://localhost:3000/stocks/client/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"assets",
+						"stocks",
 						"client",
 						"1"
 					]
@@ -265,7 +265,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/stocks/assets",
+					"raw": "http://localhost:3000/stocks/all",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -273,7 +273,7 @@
 					"port": "3000",
 					"path": [
 						"stocks",
-						"assets"
+						"all"
 					]
 				}
 			},
@@ -303,14 +303,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/assets/3",
+					"raw": "http://localhost:3000/stocks/asset/3",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"assets",
+						"stocks",
+						"asset",
 						"3"
 					]
 				}
