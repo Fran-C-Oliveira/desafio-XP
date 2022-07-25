@@ -9,6 +9,12 @@
 
 ## Iniciando
 
+Clone o projeto
+
+```zsh
+git@github.com:Fran-C-Oliveira/desafio-XP.git
+```
+
 ### Pré-requisitos
 - node versão v16.13.2
 
@@ -85,7 +91,7 @@ sudo apt install mysql-server
  
 ### Instalando as dependências da aplicação
 
-No terminal, navegue até a pasta onde você salvou a aplicação e rode o comando: 
+No terminal, navegue até a pasta onde você fez o clone da aplicação e rode o comando: 
  ```zsh
  npm install
  ``` 
@@ -116,7 +122,7 @@ No terminal, navegue até a pasta onde você salvou a aplicação e rode o coman
    POST `/register` - para cadastros de novos usuários;
    
     ```bash    
-   Exemplo: 
+   #Exemplo: 
    curl --location --request POST 'http://localhost:3000/register' \
     --header 'Content-Type: application/json' \
     --data-raw '{
@@ -129,7 +135,7 @@ No terminal, navegue até a pasta onde você salvou a aplicação e rode o coman
    POST `/login` - para login de usuários já cadastrados;
    
     ```bash 
-   Exemplo:
+   #Exemplo:
    curl --location --request POST 'http://localhost:3000/login' \
     --header 'Content-Type: application/json' \
     --data-raw '{
@@ -138,11 +144,11 @@ No terminal, navegue até a pasta onde você salvou a aplicação e rode o coman
     }'
     ```
    
-   GET `/assets/all` - para listar todas as ações disponíveis na corretora, com suas informações e quantidades;
+   GET `/stocks/all` - para listar todas as ações disponíveis na corretora, com suas informações e quantidades;
    
    ```bash 
-   Exemplo: 
-   curl --location --request GET 'http://localhost:3000/stocks/assets' \
+   #Exemplo: 
+   curl --location --request GET 'http://localhost:3000/stocks/all' \
     --header 'Authorization: <generated_token>' \
     --data-raw ''
     ```
@@ -150,7 +156,7 @@ No terminal, navegue até a pasta onde você salvou a aplicação e rode o coman
    POST `/investments/buy` - onde o cliente pode efetuar a compra de ações;
    
    ```bash
-   Exemplo:
+   #Exemplo:
    curl --location --request POST 'http://localhost:3000/investments/buy' \
     --header 'Authorization: <generated_token>' \
     --header 'Content-Type: application/json' \
@@ -164,7 +170,7 @@ No terminal, navegue até a pasta onde você salvou a aplicação e rode o coman
    POST `/investments/sell` - onde o cliente pode efetuar a venda de ações;
    
    ```bash 
-   Exemplo:
+   #Exemplo:
      curl --location --request POST 'http://localhost:3000/investments/sell' \
     --header 'Authorization: <generated_token>' \
     --header 'Content-Type: application/json' \
@@ -178,7 +184,7 @@ No terminal, navegue até a pasta onde você salvou a aplicação e rode o coman
    GET `/account/:id` - onde é possível ver as informações da conta do cliente ao informar seu id na rota;
    
    ```bash 
-   Exemplo: 
+   #Exemplo: 
    curl --location --request GET 'http://localhost:3000/account/4' \
   --header 'Authorization: <generated_token>' \
   --data-raw ''
@@ -187,7 +193,7 @@ No terminal, navegue até a pasta onde você salvou a aplicação e rode o coman
    POST `/account/deposit` - onde o cliente pode efetuar depósitos em sua conta;
    
    ```bash 
-   Exemplo: 
+   #Exemplo: 
    curl --location --request POST 'http://localhost:3000/account/deposit' \
     --header 'Authorization: <generated_token>' \
     --header 'Content-Type: application/json' \
@@ -200,7 +206,7 @@ No terminal, navegue até a pasta onde você salvou a aplicação e rode o coman
    POST `/account/withdraw` - onde o cliente pode efetuar saques em sua conta;
    
    ```bash 
-   Exemplo: 
+   #Exemplo: 
    curl --location --request POST 'http://localhost:3000/account/withdraw' \
     --header 'Authorization: <generated_token>' \
     --header 'Content-Type: application/json' \
@@ -210,21 +216,21 @@ No terminal, navegue até a pasta onde você salvou a aplicação e rode o coman
     }'
     ```
    
-   GET `/assets/client/:id` - onde é possível listar todos os ativos de um cliente ao informar seu id na rota;
+   GET `/stocks/client/:id` - onde é possível listar todos os ativos de um cliente ao informar seu id na rota;
 
      ```bash 
-     Exemplo:
-     curl --location --request GET 'http://localhost:3000/account/4' \
+     #Exemplo:
+     curl --location --request GET 'http://localhost:3000/stocks/client/1' \
       --header 'Authorization: <generated_token>' \
       --data-raw ''
      ```
    
    
-   GET `/assets/:id` - onde é possível buscar por um ativo específico ao informar seu id na rota.
+   GET `/stocks/asset/:id` - onde é possível buscar por um ativo específico ao informar seu id na rota.
    
    ```bash 
-   Exemplo: 
-   curl --location --request GET 'http://localhost:3000/assets/3' \
+   #Exemplo: 
+   curl --location --request GET 'http://localhost:3000/stocks/asset/3' \
     --header 'Authorization: <generated_token>' \
     --header 'Content-Type: application/json' \
     --data-raw '{
