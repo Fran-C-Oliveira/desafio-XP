@@ -1,7 +1,7 @@
-<img src="https://i.imgur.com/Zdjqq1K.gif" align="left" width=180 margin-right=10px />
+<img src="https://i.imgur.com/Zdjqq1K.gif" align="left" width=180px />
 
 # Desafio-XP
-#### Versão simples do backend de uma corretora de valores
+#### Versão simplificada do backend de uma corretora de valores
 
 <br />
 <br />
