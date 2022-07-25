@@ -12,7 +12,7 @@
 Clone o projeto
 
 ```zsh
-git@github.com:Fran-C-Oliveira/desafio-XP.git
+git clone git@github.com:Fran-C-Oliveira/desafio-XP.git
 ```
 
 ### Pré-requisitos
