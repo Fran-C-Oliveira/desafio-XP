@@ -19,10 +19,11 @@ describe('1 - Validations for endpoint GET at assets/clients route', () => {
   
   it('Validate if returns error if asset is not available', async () => {
     (<jest.Mock>assetService.getAssetsByClientId).mockReturnValue(undefined);
-    const result = await request(app).get('/assets/client/3');
+    const result = await request(app).get('/stocks/client/3');
     expect(result.statusCode).toEqual(400);
     expect(result.body).toEqual({ "message": 'This client does not possess any assets' });
   });
+
   it('Validate if it is possible to find a asset by clientId sucessfully', async () => {
     const assets = [
       {
@@ -39,14 +40,14 @@ describe('1 - Validations for endpoint GET at assets/clients route', () => {
       },
     ];
     (<jest.Mock>assetService.getAssetsByClientId).mockReturnValue(assets);
-    const result = await request(app).get('/assets/client/3');
+    const result = await request(app).get('/stocks/client/3');
     
     expect(result.statusCode).toEqual(201);
     expect(result.body).toEqual(assets);
   });
 });
 
-describe('2 - Validations for endpoint GET at assets/assetId route', () => {
+describe('2 - Validations for endpoint GET at stocks/asset/assetId route', () => {
   beforeEach(() => {
     assetService.getAssetById = jest.fn();
     (<jest.Mock>auth.checkUserToken).mockReturnValue(validToken);
@@ -57,7 +58,7 @@ describe('2 - Validations for endpoint GET at assets/assetId route', () => {
 
   it('Validate if returns error if asset is not available', async () => {
     (<jest.Mock>assetService.getAssetById).mockReturnValue(undefined);
-    const result = await request(app).get('/assets/3');
+    const result = await request(app).get('/stocks/asset/3');
 
     expect(result.statusCode).toEqual(400);
     expect(result.body).toEqual({ "message": 'This asset is not available' });
@@ -72,14 +73,14 @@ describe('2 - Validations for endpoint GET at assets/assetId route', () => {
     };
 
     (<jest.Mock>assetService.getAssetById).mockReturnValue(asset);
-    const result = await request(app).get('/assets/3');
+    const result = await request(app).get('/stocks/asset/3');
     
     expect(result.statusCode).toEqual(201);
     expect(result.body).toEqual(asset);
   });
 });
 
-describe('Validations for endpoint GET at /assets/all route', () => {
+describe('Validations for endpoint GET at /stocks/all route', () => {
   beforeEach(() => {
     assetService.getAllAssets = jest.fn();
     auth.checkUserToken = jest.fn();
@@ -116,7 +117,7 @@ describe('Validations for endpoint GET at /assets/all route', () => {
     ];
 
     (<jest.Mock>assetService.getAllAssets).mockReturnValue(assetList);
-    const result = await request(app).get('/assets/All');
+    const result = await request(app).get('/stocks/All');
     expect(result.statusCode).toEqual(201);
     expect(result.body).toEqual(assetList);
   });
