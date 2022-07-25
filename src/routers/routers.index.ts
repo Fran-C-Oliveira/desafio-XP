@@ -10,7 +10,7 @@ import httpErrorMiddleware from '../middlewares/httpException.middleware';
 const routers = Router();
 
 routers.use('/investments', httpErrorMiddleware, validateClientToken, investmentRoutes);
-routers.use('/assets', httpErrorMiddleware, validateClientToken, assetRoutes);
+routers.use('/stocks', httpErrorMiddleware, validateClientToken, assetRoutes);
 routers.use('/account', httpErrorMiddleware, validateClientToken, balanceRoutes);
 routers.use('/', httpErrorMiddleware, userRoutes);
 
