@@ -247,5 +247,5 @@ No terminal, navegue até a pasta onde você fez o clone da aplicação e rode o
    
  - Foi criado um middleware(httpException), que passa por todas as rotas, cuja função é detectar erros de requisição diferentes dos que foram tratados no desenvolvimento;
  - Foi desenvolvida uma autenticação utilizando Json Web Token, necessária para todas as demais rotas além de `register` e `login`;  
- - Os testes foram desenvolvidos unindo Jest e Typescript, através do framework <b>Supertest</b>
+ - Os testes foram desenvolvidos unindo Jest e Typescript, através da biblioteca <b>Supertest</b>
  
