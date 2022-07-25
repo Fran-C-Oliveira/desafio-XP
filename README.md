@@ -5,6 +5,11 @@
 
 <br />
 <br />
+
+#### Descrição
+Esta é uma API RESTful desenvolvida para desafio técnico da XP Inc.
+O objetivo dessa aplicação é simular o funcionamento do backend de uma corretora de valores, levando em consideração as regras de negócio aplicadas neste ambiente.
+
 <br />
 
 ## Iniciando
