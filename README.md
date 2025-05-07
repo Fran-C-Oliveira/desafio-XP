@@ -1,6 +1,6 @@
 <img src="https://i.imgur.com/Zdjqq1K.gif" align="left" width=180px />
 
-# Desafio-XP
+# Corretora de Valores e Banco
 #### Versão simplificada do backend de uma corretora de valores
 
 <br />
